@@ -280,11 +280,14 @@ namespace Hec.Dss
       int julianBaseDate = 0, timeGranularitySeconds = 60;
       ByteString units = new ByteString(64);
       ByteString type = new ByteString(64);
+      ByteString timeZoneName = new ByteString(64);
 
-      status = DssNative.hec_dss_tsRetrieve(dss, dssPath.PathWithoutRange, 
+      status = DssNative.hec_dss_tsRetrieve(dss, dssPath.PathWithoutRange,
           startDate, startTime, endDate, endTime, times, values, numberValues,
-         ref numberValuesRead, quality, qualityLength, ref julianBaseDate, ref timeGranularitySeconds,
-         units.Data, units.Length, type.Data, type.Length);
+         null, 0,
+         ref numberValuesRead, quality, qualityElementSize, ref julianBaseDate, ref timeGranularitySeconds,
+         units.Data, units.Length, type.Data, type.Length,
+         timeZoneName.Data, timeZoneName.Length);
 
       TimeSeries ts = new TimeSeries();
       
@@ -464,6 +467,7 @@ namespace Hec.Dss
       double[] Ordinates = new double[numberOrdinates];
       double[] Values = new double[numberOrdinates*numberCurves];
       ByteString labels = new ByteString(labelsLength);
+      ByteString timeZoneName = new ByteString(64);
 
       status = DssNative.hec_dss_pdRetrieve(dss, pathname, Ordinates, Ordinates.Length,
         Values, Values.Length, ref numberOrdinates, ref numberCurves,
@@ -471,7 +475,8 @@ namespace Hec.Dss
         unitsDependent.Data, unitsDependent.Data.Length,
         typeIndependent.Data, typeIndependent.Data.Length,
         typeDependent.Data, typeDependent.Data.Length,
-        labels.Data, labels.Data.Length);
+        labels.Data, labels.Data.Length,
+        timeZoneName.Data, timeZoneName.Data.Length);
 
       if (status != 0)
       {

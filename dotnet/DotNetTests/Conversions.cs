@@ -14,12 +14,15 @@ namespace DotNetTests
    {
 
       [TestMethod]
+      [ExpectedException(typeof(NotSupportedException))]
       public void ConvertDSS6ToDSS7()
       {
+         // DSS 6 conversion was removed from the native hecdss library (7-JA and later)
          var fn6 = TestUtility.GetCopyForTesting("sample6.dss");
          var fn7 = TestUtility.GetSimpleTempFileName(".dss");
-         int status = DssWriter.ConvertFromDSS6ToDSS7(fn6, fn7);
-         Console.WriteLine(  "Status = "+status);
+#pragma warning disable CS0618 // ConvertFromDSS6ToDSS7 is obsolete
+         DssWriter.ConvertFromDSS6ToDSS7(fn6, fn7);
+#pragma warning restore CS0618
         }
    }
 }
