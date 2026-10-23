@@ -21,11 +21,11 @@ namespace Hec.Dss
     /// </summary>
     /// <param name="fileName6"></param>
     /// <param name="fileName7"></param>
-    /// <exception cref="NotSupportedException">always</exception>
+    /// <returns>always -700, the native error code for an unsupported DSS version</returns>
     [Obsolete("DSS version 6 conversion was removed from the native hecdss library. Use HEC-DSSVue to convert DSS 6 files.")]
     public static int ConvertFromDSS6ToDSS7(string fileName6, string fileName7)
     {
-      throw new NotSupportedException("DSS version 6 conversion was removed from the native hecdss library. Use HEC-DSSVue to convert DSS 6 files.");
+      return -700;
     }
 
     public int Write(TimeSeriesProfile profile, bool saveAsFloat = false)

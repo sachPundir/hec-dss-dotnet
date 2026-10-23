@@ -86,6 +86,9 @@ namespace Hec.Dss
           throw new Exception("This library only supports DSS version 7 files");
 
         default:
+          // hecdss 7-JA and later fail to open DSS 6 files before checking the version
+          if (GetVersion(filename) == 6)
+            throw new Exception("This library only supports DSS version 7 files");
           throw new Exception("Error opening DSS file.");
       }
     }
